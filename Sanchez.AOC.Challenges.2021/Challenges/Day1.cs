@@ -1,4 +1,8 @@
-﻿using Sanchez.AOC.Core;
+﻿using MoreLinq;
+
+using Sanchez.AOC.Core;
+
+using System.Linq;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
@@ -6,12 +10,32 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
     {
         public string Part1()
         {
-            return "part1";
+            var input = InputLoader
+                .Load()
+                .Split("\n")
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => int.Parse(x))
+                .Pairwise((a, b) => b > a ? 1 : 0)
+                .Sum();
+
+            return input.ToString();
         }
 
         public string Part2()
         {
-            return "part2";
+            var input = InputLoader
+                .Load()
+                .Split("\n")
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => int.Parse(x))
+                .Window(3)
+                .Select(x => x.Sum())
+                .Pairwise((a, b) => b > a ? 1 : 0)
+                .Sum();
+
+            return input.ToString();
         }
     }
 }

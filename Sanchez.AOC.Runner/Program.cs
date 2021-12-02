@@ -27,7 +27,8 @@ namespace Sanchez.AOC.Runner
 
             if (int.TryParse(assemblyYearStr, out var assemblyYear))
             {
-                SolutionMap[assemblyYear] = new();
+                if (!SolutionMap.ContainsKey(assemblyYear))
+                    SolutionMap[assemblyYear] = new();
 
                 var solutionType = typeof(ISolution);
                 foreach (var t in solutionAssembly.GetExportedTypes())
