@@ -1,6 +1,6 @@
 ﻿using Sanchez.AOC.Core;
+using Sanchez.AOC.Core.Extensions;
 
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
@@ -12,39 +12,27 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             var horizontal = 0;
             var vertical = 0;
 
-            var forwardRegex = new Regex(@"^forward (\d+)$");
-            var upRegex = new Regex(@"^up (\d+)$");
             var downRegex = new Regex(@"^down (\d+)$");
 
-            var input = InputLoader
-                .Load()
-                .Split("\n")
-                .Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x));
+            var input = InputLoader.Load().NewLinedInput();
 
             foreach (var line in input)
             {
-                var forwardMatch = forwardRegex.Match(line);
-                if (forwardMatch.Success)
+                if (Regexer.GetSingleInt(@"^forward (\d+)$", line, out var forward))
                 {
-                    var x = int.Parse(forwardMatch.Groups[1].Value);
-                    horizontal += x;
+                    horizontal += forward;
                     continue;
                 }
 
-                var upMatch = upRegex.Match(line);
-                if (upMatch.Success)
+                if (Regexer.GetSingleInt(@"^up (\d+)$", line, out var up))
                 {
-                    var x = int.Parse(upMatch.Groups[1].Value);
-                    vertical -= x;
+                    vertical -= up;
                     continue;
                 }
 
-                var downMatch = downRegex.Match(line);
-                if (downMatch.Success)
+                if (Regexer.GetSingleInt(@"^down (\d+)$", line, out var down))
                 {
-                    var x = int.Parse(downMatch.Groups[1].Value);
-                    vertical += x;
+                    vertical += down;
                     continue;
                 }
             }
@@ -58,40 +46,26 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             var horizontal = 0;
             var vertical = 0;
 
-            var forwardRegex = new Regex(@"^forward (\d+)$");
-            var upRegex = new Regex(@"^up (\d+)$");
-            var downRegex = new Regex(@"^down (\d+)$");
-
-            var input = InputLoader
-                .Load()
-                .Split("\n")
-                .Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x));
+            var input = InputLoader.Load().NewLinedInput();
 
             foreach (var line in input)
             {
-                var forwardMatch = forwardRegex.Match(line);
-                if (forwardMatch.Success)
+                if (Regexer.GetSingleInt(@"^forward (\d+)$", line, out var forward))
                 {
-                    var x = int.Parse(forwardMatch.Groups[1].Value);
-                    horizontal += x;
-                    vertical += (aim * x);
+                    horizontal += forward;
+                    vertical += (aim * forward);
                     continue;
                 }
 
-                var upMatch = upRegex.Match(line);
-                if (upMatch.Success)
+                if (Regexer.GetSingleInt(@"^up (\d+)$", line, out var up))
                 {
-                    var x = int.Parse(upMatch.Groups[1].Value);
-                    aim -= x;
+                    aim -= up;
                     continue;
                 }
 
-                var downMatch = downRegex.Match(line);
-                if (downMatch.Success)
+                if (Regexer.GetSingleInt(@"^down (\d+)$", line, out var down))
                 {
-                    var x = int.Parse(downMatch.Groups[1].Value);
-                    aim += x;
+                    aim += down;
                     continue;
                 }
             }

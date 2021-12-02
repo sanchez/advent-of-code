@@ -1,6 +1,7 @@
 ﻿using MoreLinq;
 
 using Sanchez.AOC.Core;
+using Sanchez.AOC.Core.Extensions;
 
 using System.Linq;
 
@@ -12,9 +13,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
         {
             var input = InputLoader
                 .Load()
-                .Split("\n")
-                .Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .NewLinedInput()
                 .Select(x => int.Parse(x))
                 .Pairwise((a, b) => b > a ? 1 : 0)
                 .Sum();
@@ -26,9 +25,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
         {
             var input = InputLoader
                 .Load()
-                .Split("\n")
-                .Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .NewLinedInput()
                 .Select(x => int.Parse(x))
                 .Window(3)
                 .Select(x => x.Sum())
