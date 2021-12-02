@@ -7,8 +7,8 @@ namespace Sanchez.AOC.Core.Extensions
     {
         public static bool GetSingleInt(string pattern, string input, out int res)
         {
-            var re = new Regex(input);
-            var match = re.Match(pattern);
+            var re = new Regex(pattern);
+            var match = re.Match(input);
 
             if (match.Success)
             {

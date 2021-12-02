@@ -12,13 +12,11 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             var horizontal = 0;
             var vertical = 0;
 
-            var downRegex = new Regex(@"^down (\d+)$");
-
             var input = InputLoader.Load().NewLinedInput();
 
             foreach (var line in input)
             {
-                if (Regexer.GetSingleInt(@"^forward (\d+)$", line, out var forward))
+                if (Regexer.GetSingleInt(/* language=regex */ @"^forward (\d+)$", line, out var forward))
                 {
                     horizontal += forward;
                     continue;
