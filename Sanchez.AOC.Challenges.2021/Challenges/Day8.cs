@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Sanchez.AOC.Core;
+﻿using Sanchez.AOC.Core;
 using Sanchez.AOC.Core.Extensions;
+
+using System;
+using System.Linq;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
@@ -37,6 +37,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
 
         protected int SolveLine(string[] sequence, string[] output)
         {
+            // TODO: Order the letters, solve for each number, dictionary, lookup
             var possibleChars = sequence.SelectMany(x => x).Distinct().ToArray();
 
             var oneDigit = sequence.Where(x => x.Count() == 2).Single();
@@ -136,6 +137,11 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                     return (Before: before, After: after);
                 })
                 .Select(x => SolveLine(x.Before, x.After))
+                .ToList();
+
+            var hmmmm =
+                input
+                .Where(x => x > 9999)
                 .ToList();
 
             return input.Sum().ToString();
