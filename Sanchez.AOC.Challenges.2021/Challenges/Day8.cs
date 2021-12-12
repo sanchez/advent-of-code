@@ -21,6 +21,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                 return 3;
             }
 
+            if (input.Contains(topRight) && input.Contains(bottomLeft)) return 0;
             if (input.Contains(topRight)) return 9;
             return 6;
         }
