@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day5 : ISolution
+    public class Day05 : ISolution
     {
         public struct Point
         {

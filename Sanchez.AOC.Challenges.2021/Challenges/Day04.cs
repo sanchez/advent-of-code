@@ -7,7 +7,7 @@ using Sanchez.AOC.Core;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day4 : ISolution
+    public class Day04 : ISolution
     {
         public class Board
         {

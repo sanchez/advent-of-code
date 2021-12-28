@@ -8,7 +8,7 @@ using Sanchez.AOC.Core.Extensions;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day3 : ISolution
+    public class Day03 : ISolution
     {
         uint BoolToInt(IEnumerable<bool> input)
         {

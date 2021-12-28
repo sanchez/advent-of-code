@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day2 : ISolution
+    public class Day02 : ISolution
     {
         public string Part1()
         {

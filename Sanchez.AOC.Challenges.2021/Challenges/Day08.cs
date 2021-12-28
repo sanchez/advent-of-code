@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day8 : ISolution
+    public class Day08 : ISolution
     {
         protected int GetNumber(string input, char topRight, char bottomRight, char topLeft, char bottomLeft)
         {

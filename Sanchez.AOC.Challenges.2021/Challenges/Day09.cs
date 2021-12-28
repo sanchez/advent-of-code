@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sanchez.AOC.Challenges._2021.Challenges
 {
-    public class Day9 : ISolution
+    public class Day09 : ISolution
     {
         public string Part1()
         {
