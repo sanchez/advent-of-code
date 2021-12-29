@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Sanchez.AOC.Core\Sanchez.AOC.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shared\" />
+  </ItemGroup>
 </Project>
