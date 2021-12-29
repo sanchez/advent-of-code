@@ -137,10 +137,17 @@ namespace Sanchez.AOC.Runner
 
         static async Task ExecuteSolution(SolutionPackage solution)
         {
-            var part1Answer = solution.Solution.Part1();
-            Console.WriteLine($"Got answer for ({solution.Year}, {solution.Day}, 1) of {part1Answer}");
-            var part2Answer = solution.Solution.Part2();
-            Console.WriteLine($"Got answer for ({solution.Year}, {solution.Day}, 2) of {part2Answer}");
+            try
+            {
+                var part1Answer = solution.Solution.Part1();
+                Console.WriteLine($"Got answer for ({solution.Year}, {solution.Day}, 1) of {part1Answer}");
+                var part2Answer = solution.Solution.Part2();
+                Console.WriteLine($"Got answer for ({solution.Year}, {solution.Day}, 2) of {part2Answer}");
+            }
+            catch (Exception ex)
+            {
+                // TODO: Do something with the exception here
+            }
         }
 
         static async Task Main(string[] args)
