@@ -49,8 +49,9 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             }
         }
 
-        int CalculatePath(Dictionary<Position, Chiton> input)
+        int CalculatePath(Dictionary<Position, Chiton> input, out bool madeChanges)
         {
+            madeChanges = false;
             var startPos = new Position(0, 0);
             var maxX = input.Select(x => x.Key.X).Max();
             var maxY = input.Select(x => x.Key.Y).Max();
@@ -73,7 +74,10 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                         if (input.TryGetValue(pos + surrounding, out var item))
                             possibleValues.Add(item.LowestDistance);
 
-                    input[pos].LowestDistance = possibleValues.Min() + input[pos].RiskLevel;
+                    var newLowest = possibleValues.Min() + input[pos].RiskLevel;
+                    if (newLowest != input[pos].LowestDistance)
+                        madeChanges = true;
+                    input[pos].LowestDistance = newLowest;
                 }
 
                 for (var y = 0; y <= i; y++)
@@ -89,7 +93,10 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                         if (input.TryGetValue(pos + surrounding, out var item))
                             possibleValues.Add(item.LowestDistance);
 
-                    input[pos].LowestDistance = possibleValues.Min() + input[pos].RiskLevel;
+                    var newLowest = possibleValues.Min() + input[pos].RiskLevel;
+                    if (newLowest != input[pos].LowestDistance)
+                        madeChanges = true;
+                    input[pos].LowestDistance = newLowest;
                 }
             }
 
@@ -110,7 +117,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                     LowestDistance = int.MaxValue
                 });
 
-            var finalDistance = CalculatePath(input);
+            var finalDistance = CalculatePath(input, out var _);
 
             return finalDistance.ToString();
         }
@@ -157,14 +164,17 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
 
             //PrintInput(newDictionary);
 
-            var shortestPath = int.MaxValue;
-            for (var i = 0; i <= 10; i++)
+            //var shortestPath = int.MaxValue;
+            for (var i = 0; i <= 50; i++)
             {
-                var calculated = CalculatePath(newDictionary);
-                if (calculated == shortestPath)
-                    return shortestPath.ToString();
-                if (calculated < shortestPath)
-                    shortestPath = calculated;
+                var calculated = CalculatePath(newDictionary, out var madeChanges);
+                Console.WriteLine(calculated);
+                if (!madeChanges)
+                    return calculated.ToString();
+                //if (calculated == shortestPath)
+                //    return shortestPath.ToString();
+                //if (calculated < shortestPath)
+                //    shortestPath = calculated;
             }
 
             return "Not Found";
