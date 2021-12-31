@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Challenges", "Challenges", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanchez.AOC.Challenges.2021", "Sanchez.AOC.Challenges.2021\Sanchez.AOC.Challenges.2021.csproj", "{4AA5E4D1-B979-42FC-9A0B-9155EA53AFC7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{9E8E0121-FD75-4BEC-9055-CA7FC27F82CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

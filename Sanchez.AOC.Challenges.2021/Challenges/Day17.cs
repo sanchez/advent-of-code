@@ -83,8 +83,10 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             var startingPoint = new Point(0, 0);
 
             var successfulLaunch = new HashSet<Point>();
-            for (var x = 0; x <= 350; x++)
-                for (var y = -100; y <= 3000; y++)
+            for (var x = 1; x <= 303; x++)
+            {
+                Console.WriteLine(x);
+                for (var y = -91; y <= 4096; y++)
                 {
                     var path = CalculatePath(landingZone, startingPoint, x, y).ToArray();
                     if (LandsInTargetArea(landingZone, path))
@@ -92,6 +94,7 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
                         successfulLaunch.Add(new Point(x, y));
                     }
                 }
+            }
 
             return successfulLaunch.Count().ToString();
         }
