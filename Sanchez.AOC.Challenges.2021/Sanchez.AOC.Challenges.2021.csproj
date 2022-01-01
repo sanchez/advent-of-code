@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sanchez.AOC.Core\Sanchez.AOC.Core.csproj" />
+    <ProjectReference Include="..\Sanchez.Geometry\Sanchez.Geometry.csproj" />
+    <ProjectReference Include="..\Sanchez.Match\Sanchez.Match.csproj" />
   </ItemGroup>
 
   <ItemGroup>
