@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
 using MoreLinq;
 using Sanchez.AOC.Core;
 
@@ -76,68 +77,43 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
 
         public string Part2()
         {
-            var onGoingGames = new List<Game>()
+            var possibleRollsScore = new List<int>();
+            for (var a = 1; a < 4; a++)
+                for (var b = 1; b < 4; b++)
+                    for (var c = 1; c < 4; c++)
+                        possibleRollsScore.Add(a + b + c);
+
+            var allPlayerScores = new List<Player>()
             {
-                new Game(new(4, 0), new(8, 0))
+                new(4, 0)
             };
 
-            ICollection<Player> RollForPlayer(Player p)
+            while (!allPlayerScores.All(x => x.HasWon))
             {
-                var players = new List<Player>();
-                for (var i = 1; i < 4; i++)
+                Console.WriteLine(allPlayerScores.Count);
+                var newPlayerScores = new List<Player>();
+                foreach (var player in allPlayerScores)
                 {
-                    var newPlayer = p with { Position = p.Position + i };
-                    if (newPlayer.Position > 10)
-                        newPlayer = newPlayer with { Position = p.Position - 10 };
-                    players.Add(newPlayer);
-                }
-                return players;
-            }
-
-            Player CalculateScore(Player p) => p with { Score = p.Score + p.Position };
-
-            long pOneWins = 0;
-            long pTwoWins = 0;
-
-            while (!onGoingGames.All(x => x.HasWon))
-            {
-                var newGames = new List<Game>();
-                Console.WriteLine($"Games {onGoingGames.Count}");
-
-                foreach (var game in onGoingGames)
-                {
-                    if (game.HasWon)
+                    if (player.HasWon)
                     {
-                        if (game.One.HasWon)
-                            pOneWins++;
-                        if (game.Two.HasWon)
-                            pTwoWins++;
+                        newPlayerScores.Add(player);
                     }
                     else
                     {
-                        var resultingPlayerOne = new List<Player>();
-                        foreach (var firstRoll in RollForPlayer(game.One))
-                            foreach (var secondRoll in RollForPlayer(game.One))
-                                foreach (var thirdRoll in RollForPlayer(game.One))
-                                    resultingPlayerOne.Add(CalculateScore(thirdRoll));
-
-                        foreach (var playerOne in resultingPlayerOne)
+                        foreach (var score in possibleRollsScore)
                         {
-                            if (playerOne.HasWon)
-                                newGames.Add(game with { One = playerOne });
-                            else
-                                foreach (var firstRoll in RollForPlayer(game.Two))
-                                    foreach (var secondRoll in RollForPlayer(game.Two))
-                                        foreach (var thirdRoll in RollForPlayer(game.Two))
-                                            newGames.Add(game with { Two = CalculateScore(thirdRoll) });
+                            var newPosition = player.Position + score;
+                            if (newPosition > 10)
+                                newPosition -= 10;
+                            var newScore = player.Score + newPosition;
+                            newPlayerScores.Add(new(newPosition, newScore));
                         }
                     }
                 }
-
-                onGoingGames = newGames;
+                allPlayerScores = newPlayerScores;
             }
 
-            return Math.Max(pOneWins, pTwoWins).ToString();
+            return "";
         }
     }
 }
