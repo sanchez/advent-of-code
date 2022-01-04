@@ -66,52 +66,107 @@ namespace Sanchez.AOC.Challenges._2021.Challenges
             return "";
         }
 
-        record Player(int Position, int Score)
+        record Player(int Weight, int TurnCount, int Position, int Score)
         {
             public bool HasWon => Score >= 21;
         }
-        record Game(Player One, Player Two)
+
+        IList<Player> SimulatePlayer(List<(int Position, int Weight)>[] positionLookup, Player startingPlayer)
         {
-            public bool HasWon => One.HasWon || Two.HasWon;
+            var completedPlayer = new List<Player>();
+            var onGoingPlayer = new List<Player>
+            {
+                startingPlayer
+            };
+
+            while (onGoingPlayer.Count > 0)
+            {
+                var newPlayers = new List<Player>();
+                foreach (var player in onGoingPlayer)
+                    foreach (var possible in positionLookup[player.Position])
+                    {
+                        var newPlayer = player with
+                        {
+                            TurnCount = player.TurnCount + 1,
+                            Position = possible.Position,
+                            Score = player.Score + possible.Position,
+                            Weight = player.Weight + possible.Weight
+                        };
+
+                        if (newPlayer.HasWon)
+                            completedPlayer.Add(newPlayer);
+                        else newPlayers.Add(newPlayer);
+                    }
+                onGoingPlayer = newPlayers;
+            }
+
+            return completedPlayer;
+        }
+
+        ICollection<Player> ExpandPlayer(ICollection<Player> player)
+        {
+            var size = player.Select(x => x.Weight).Sum();
+            var res = new List<Player>(size);
+
+            foreach (var x in player)
+                for (var i = 0; i < x.Weight; i++)
+                    res.Add(x);
+
+            return res;
         }
 
         public string Part2()
         {
+            return "";
+
             var possibleRollsScore = new List<int>();
             for (var a = 1; a < 4; a++)
                 for (var b = 1; b < 4; b++)
                     for (var c = 1; c < 4; c++)
                         possibleRollsScore.Add(a + b + c);
+            var weightedPossibleScore = possibleRollsScore
+                .GroupBy(x => x)
+                .Select(x => (x.Key, x.Count()))
+                .ToArray();
 
-            var allPlayerScores = new List<Player>()
-            {
-                new(4, 0)
-            };
+            var positionLookup = new List<(int Position, int Weight)>[11];
+            positionLookup[0] = new List<(int Position, int Weight)>();
 
-            while (!allPlayerScores.All(x => x.HasWon))
+            for (var i = 1; i < 11; i++)
             {
-                Console.WriteLine(allPlayerScores.Count);
-                var newPlayerScores = new List<Player>();
-                foreach (var player in allPlayerScores)
+                var possiblePosition = new List<(int Position, int Weight)>();
+
+                foreach (var roll in weightedPossibleScore)
                 {
-                    if (player.HasWon)
-                    {
-                        newPlayerScores.Add(player);
-                    }
-                    else
-                    {
-                        foreach (var score in possibleRollsScore)
-                        {
-                            var newPosition = player.Position + score;
-                            if (newPosition > 10)
-                                newPosition -= 10;
-                            var newScore = player.Score + newPosition;
-                            newPlayerScores.Add(new(newPosition, newScore));
-                        }
-                    }
+                    var newPosition = i + roll.Key;
+                    if (newPosition > 10)
+                        newPosition -= 10;
+
+                    possiblePosition.Add((newPosition, roll.Item2));
                 }
-                allPlayerScores = newPlayerScores;
+
+                positionLookup[i] = possiblePosition;
             }
+
+            var playerOne = ExpandPlayer(SimulatePlayer(positionLookup, new(0, 0, 4, 0)));
+            var playerTwo = ExpandPlayer(SimulatePlayer(positionLookup, new(0, 0, 8, 0)));
+
+            long playerOneWins = 0;
+            long playerTwoWins = 0;
+            foreach (var pOne in playerOne)
+                foreach (var pTwo in playerTwo)
+                {
+                    //var weight = pOne.Weight * pTwo.Weight;
+                    var weight = 1;
+                    if (pOne.TurnCount <= pTwo.TurnCount)
+                        playerOneWins += weight;
+                    else playerTwoWins += weight;
+                }
+
+            if (playerOneWins != 444356092776315)
+                return "Player One";
+            if (playerTwoWins != 341960390180808)
+                return "Player Two";
 
             return "";
         }
