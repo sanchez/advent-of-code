@@ -11,4 +11,10 @@
     <ProjectReference Include="..\Sanchez.AOC\Sanchez.AOC.csproj" />
     <ProjectReference Include="..\..\match\Sanchez.Match\Sanchez.Match.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="2021\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="2021\" />
+  </ItemGroup>
 </Project>
