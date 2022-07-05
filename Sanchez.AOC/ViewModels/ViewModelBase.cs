@@ -1,12 +1,8 @@
+﻿using System;
 using ReactiveUI;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+namespace Sanchez.AOC.ViewModels;
 
-namespace Sanchez.AOC.ViewModels
+public class ViewModelBase : ReactiveObject
 {
-    public class ViewModelBase : ReactiveObject
-    {
-    }
 }

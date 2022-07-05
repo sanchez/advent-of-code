@@ -1,12 +1,12 @@
+﻿using System;
 using Avalonia.Controls;
 
-namespace Sanchez.AOC.Views
+namespace Sanchez.AOC.Views;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
