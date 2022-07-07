@@ -14,12 +14,10 @@ namespace Sanchez.AOC;
 
 public class Setup
 {
-    IServiceCollection _services = new ServiceCollection();
     Dictionary<int, Dictionary<int, ISolution>> solutionDir = new();
 
     private Setup()
     {
-        _services.AddSingleton<IStorageService, StorageService>();
     }
 
     public static Setup Init()
@@ -66,11 +64,7 @@ public class Setup
         //thread.SetApartmentState(ApartmentState.STA);
         //thread.Start();
 
-        IServiceProvider provider = _services.BuildServiceProvider();
-        Window mainWindow = ActivatorUtilities.CreateInstance<MainWindow>(provider);
-        mainWindow.DataContext = ViewLocator.GetViewModel(mainWindow, provider);
-
-        AppBuilder builder = AppBuilder.Configure(() => new App(provider, mainWindow))
+        AppBuilder builder = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();

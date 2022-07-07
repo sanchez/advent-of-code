@@ -9,19 +9,6 @@ namespace Sanchez.AOC.Root;
 
 public partial class App : Application
 {
-    private readonly IServiceProvider _services;
-    private readonly Window _mainWindow;
-
-    public App()
-    {
-    }
-
-    public App(IServiceProvider services, Window mainWindow)
-    {
-        _services = services;
-        _mainWindow = mainWindow;
-    }
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -31,7 +18,10 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = _mainWindow;
+            desktop.MainWindow = new MainWindow()
+            {
+                DataContext = new MainWindowViewModel()
+            };
         }
 
         base.OnFrameworkInitializationCompleted();
