@@ -14,7 +14,8 @@ namespace Sanchez.AOC;
 
 public class Setup
 {
-    Dictionary<int, Dictionary<int, ISolution>> solutionDir = new();
+    IServiceCollection _serviceContainer = new ServiceCollection();
+    Dictionary<int, Dictionary<int, ISolution>> _solutionDir = new();
 
     private Setup()
     {
@@ -22,15 +23,28 @@ public class Setup
 
     public static Setup Init()
     {
-        return new Setup();
+        Setup setup = new();
+
+        setup.LocateViewModels();
+
+        return setup;
+    }
+
+    void LocateViewModels()
+    {
+        foreach (Type scanType in this.GetType().Assembly.GetTypes())
+            if (scanType.FullName?.Contains("ViewModels") ?? false)
+            {
+                _serviceContainer.AddTransient(scanType);
+            }
     }
 
     public Setup AddSolution(ISolution solution)
     {
-        if (!solutionDir.ContainsKey(solution.Year))
-            solutionDir[solution.Year] = new();
+        if (!_solutionDir.ContainsKey(solution.Year))
+            _solutionDir[solution.Year] = new();
 
-        solutionDir[solution.Year][solution.Day] = solution;
+        _solutionDir[solution.Year][solution.Day] = solution;
 
         return this;
     }
@@ -64,7 +78,9 @@ public class Setup
         //thread.SetApartmentState(ApartmentState.STA);
         //thread.Start();
 
-        AppBuilder builder = AppBuilder.Configure<App>()
+        IServiceProvider services = _serviceContainer.BuildServiceProvider();
+
+        AppBuilder builder = AppBuilder.Configure(() => new App(services))
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
