@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.ReactiveUI;
 using Microsoft.Extensions.DependencyInjection;
 using Sanchez.AOC.IServices;
+using Sanchez.AOC.Models;
 using Sanchez.AOC.Root;
 using Sanchez.AOC.Services;
 using Sanchez.AOC.Views;
@@ -15,7 +16,7 @@ namespace Sanchez.AOC;
 public class Setup
 {
     IServiceCollection _serviceContainer = new ServiceCollection();
-    Dictionary<int, Dictionary<int, ISolution>> _solutionDir = new();
+    Dictionary<int, Dictionary<int, ISolution>> _solutions = new();
 
     private Setup()
     {
@@ -41,10 +42,10 @@ public class Setup
 
     public Setup AddSolution(ISolution solution)
     {
-        if (!_solutionDir.ContainsKey(solution.Year))
-            _solutionDir[solution.Year] = new();
+        if (!_solutions.ContainsKey(solution.Year))
+            _solutions[solution.Year] = new();
 
-        _solutionDir[solution.Year][solution.Day] = solution;
+        _solutions[solution.Year][solution.Day] = solution;
 
         return this;
     }
@@ -77,6 +78,8 @@ public class Setup
         //});
         //thread.SetApartmentState(ApartmentState.STA);
         //thread.Start();
+
+        _serviceContainer.AddSingleton(new SolutionContainer(_solutions));
 
         IServiceProvider services = _serviceContainer.BuildServiceProvider();
 
