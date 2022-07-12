@@ -1,15 +1,16 @@
-﻿using System;
-using Sanchez.AOC.Models;
+﻿using Sanchez.AOC.Models;
 
 namespace Sanchez.AOC.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        protected readonly SolutionContainer _solutions;
+        public ICollection<int> Years { get; }
+        public int SelectedYear { get; set; }
 
         public MainWindowViewModel(SolutionContainer solutions)
         {
-            _solutions = solutions;
+            Years = solutions.GetYears();
+            SelectedYear = Years.FirstOrDefault();
         }
 
         public string Greeting => "Welcome to Avalonia";

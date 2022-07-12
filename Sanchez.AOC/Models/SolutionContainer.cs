@@ -1,5 +1,4 @@
-﻿using System;
-namespace Sanchez.AOC.Models
+﻿namespace Sanchez.AOC.Models
 {
     public class SolutionContainer
     {
@@ -17,6 +16,11 @@ namespace Sanchez.AOC.Models
                     return solution;
 
             return null;
+        }
+
+        public ICollection<int> GetYears()
+        {
+            return _solutions.Keys;
         }
     }
 }

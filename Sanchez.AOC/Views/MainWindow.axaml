@@ -1,19 +1,23 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Sanchez.AOC.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Sanchez.AOC.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Sanchez.AOC">
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="using:Sanchez.AOC.ViewModels"
+		xmlns:root="using:Sanchez.AOC.Root"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="Sanchez.AOC.Views.MainWindow"
+		DataContext="{x:Static root:DesignData.MainWindow}"
+		Icon="/Assets/avalonia-logo.ico"
+		Title="Sanchez.AOC">
 
-    <StackPanel>
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button>Hello World</Button>
-    </StackPanel>
+	<DockPanel Margin="12">
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,7,0,0" Spacing="5">
+			<Button>Hello World</Button>
+			<Button>Another</Button>
+		</StackPanel>
+		<StackPanel Orientation="Horizontal" Spacing="5">
+			<ListBox Width="300" Items="{Binding Years}" SelectedItem="{Binding SelectedYear}" />
+		</StackPanel>
+	</DockPanel>
 
 </Window>

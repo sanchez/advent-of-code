@@ -15,9 +15,6 @@
 		<PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
 		<PackageReference Include="Avalonia.Diagnostics" Version="0.10.15" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-		<PackageReference Include="Splat.DependencyInjection.SourceGenerator" Version="1.1.69">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="ReactiveUI.Fody" Version="18.2.9" />
 	</ItemGroup>
 </Project>
