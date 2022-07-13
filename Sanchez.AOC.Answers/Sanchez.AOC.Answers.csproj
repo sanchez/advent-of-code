@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -11,5 +11,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Sanchez.AOC\Sanchez.AOC.csproj" />
 		<ProjectReference Include="..\..\match\Sanchez.Match\Sanchez.Match.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="_2020\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="_2020\" />
 	</ItemGroup>
 </Project>

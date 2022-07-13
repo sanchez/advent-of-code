@@ -17,6 +17,7 @@
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Spacing="5">
 			<ListBox Width="300" Items="{Binding Years}" SelectedItem="{Binding SelectedYear}" />
+			<ListBox Width="300" Items="{Binding Days}" SelectedItem="{Binding SelectedDay}" />
 		</StackPanel>
 	</DockPanel>
 

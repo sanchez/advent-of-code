@@ -22,6 +22,13 @@
         {
             return _solutions.Keys;
         }
+
+        public ICollection<int> GetDays(int year)
+        {
+            if (_solutions.TryGetValue(year, out Dictionary<int, ISolution>? solutions))
+                return solutions.Keys;
+            return Array.Empty<int>();
+        }
     }
 }
 
