@@ -17,7 +17,16 @@
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Spacing="5">
 			<ListBox Width="300" Items="{Binding Years}" SelectedItem="{Binding SelectedYear}" />
-			<ListBox Width="300" Items="{Binding Days}" SelectedItem="{Binding SelectedDay}" />
+			<ListBox Width="300" Items="{Binding Days}" SelectedItem="{Binding SelectedDay}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" Spacing="12">
+							<TextBlock Text="{Binding Status}" />
+							<TextBlock Text="{Binding Day}" />
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 		</StackPanel>
 	</DockPanel>
 

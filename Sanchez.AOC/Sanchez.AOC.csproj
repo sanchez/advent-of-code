@@ -17,4 +17,10 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageReference Include="ReactiveUI.Fody" Version="18.2.9" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Enums\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Enums\" />
+	</ItemGroup>
 </Project>

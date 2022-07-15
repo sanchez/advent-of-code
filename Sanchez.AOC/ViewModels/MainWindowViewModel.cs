@@ -11,8 +11,8 @@ namespace Sanchez.AOC.ViewModels
         public ICollection<int> Years { get; }
 
         [Reactive] public int SelectedYear { get; set; }
-        [ObservableAsProperty] public ICollection<int> Days { get; }
-        [Reactive] public int SelectedDay { get; set; }
+        [ObservableAsProperty] public ICollection<SolutionAnswer> Days { get; }
+        [Reactive] public SolutionAnswer SelectedDay { get; set; }
 
         public MainWindowViewModel(SolutionContainer solutions)
         {
@@ -20,7 +20,7 @@ namespace Sanchez.AOC.ViewModels
             SelectedYear = Years.LastOrDefault();
 
             this.WhenAnyValue(x => x.SelectedYear)
-                .Select(x => solutions.GetDays(x))
+                .Select(x => solutions.GetSolutions(x))
                 .ToPropertyEx(this, x => x.Days)
                 .DisposeWith(_disposable);
         }
