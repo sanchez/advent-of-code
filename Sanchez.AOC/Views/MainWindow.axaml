@@ -21,6 +21,7 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" Spacing="12">
+							<DrawingPresenter Width="32" Height="32" Drawing="{DynamicResource FluentIcons.access_time_regular}" />
 							<TextBlock Text="{Binding Status}" />
 							<TextBlock Text="{Binding Day}" />
 						</StackPanel>

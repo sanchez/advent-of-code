@@ -8,5 +8,6 @@
 
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
+        <StyleInclude Source="avares://Sanchez.AOC/Icons/FluentIcons.axaml" />
     </Application.Styles>
 </Application>
