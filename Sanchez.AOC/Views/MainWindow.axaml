@@ -9,6 +9,11 @@
 		DataContext="{x:Static root:DesignData.MainWindow}"
 		Icon="/Assets/avalonia-logo.ico"
 		Title="Sanchez.AOC">
+	<Window.Styles>
+		<Style Selector="GeometryDrawing">
+			<Setter Property="Brush" Value="#ffffffff" />
+		</Style>
+	</Window.Styles>
 
 	<DockPanel Margin="12">
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,7,0,0" Spacing="5">
@@ -21,7 +26,13 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" Spacing="12">
-							<DrawingPresenter Width="32" Height="32" Drawing="{DynamicResource FluentIcons.access_time_regular}" />
+							<DrawingPresenter Width="32" Height="32" Drawing="{DynamicResource FluentIcons.access_time_regular}">
+								<DrawingPresenter.Styles>
+									<Style Selector="GeometryDrawing">
+										<Setter Property="Brush" Value="#ffffffff" />
+									</Style>
+								</DrawingPresenter.Styles>
+							</DrawingPresenter>
 							<TextBlock Text="{Binding Status}" />
 							<TextBlock Text="{Binding Day}" />
 						</StackPanel>
