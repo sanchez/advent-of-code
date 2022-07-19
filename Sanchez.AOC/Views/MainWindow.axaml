@@ -4,16 +4,16 @@
 		xmlns:root="using:Sanchez.AOC.Root"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:material="using:Material.Icons.Avalonia"
+		xmlns:converter="clr-namespace:Sanchez.AOC.Converters;assembly=Sanchez.AOC"
 		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		x:Class="Sanchez.AOC.Views.MainWindow"
 		DataContext="{x:Static root:DesignData.MainWindow}"
 		Icon="/Assets/avalonia-logo.ico"
 		Title="Sanchez.AOC">
-	<Window.Styles>
-		<Style Selector="GeometryDrawing">
-			<Setter Property="Brush" Value="#ffffffff" />
-		</Style>
-	</Window.Styles>
+	<Window.Resources>
+		<converter:StatusToIconConverter x:Key="statusToIconConverter" />
+	</Window.Resources>
 
 	<DockPanel Margin="12">
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,7,0,0" Spacing="5">
@@ -26,14 +26,7 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal" Spacing="12">
-							<DrawingPresenter Width="32" Height="32" Drawing="{DynamicResource FluentIcons.access_time_regular}">
-								<DrawingPresenter.Styles>
-									<Style Selector="GeometryDrawing">
-										<Setter Property="Brush" Value="#ffffffff" />
-									</Style>
-								</DrawingPresenter.Styles>
-							</DrawingPresenter>
-							<TextBlock Text="{Binding Status}" />
+							<material:MaterialIcon Kind="{Binding Status, Converter={StaticResource statusToIconConverter}, Mode=OneWay}" />
 							<TextBlock Text="{Binding Day}" />
 						</StackPanel>
 					</DataTemplate>
