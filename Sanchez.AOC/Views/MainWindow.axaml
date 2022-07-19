@@ -13,22 +13,26 @@
 		Title="Sanchez.AOC">
 	<Window.Resources>
 		<converter:StatusToIconConverter x:Key="statusToIconConverter" />
+		<converter:NullConverter x:Key="nullConverter" />
 	</Window.Resources>
 
 	<DockPanel Margin="12">
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,7,0,0" Spacing="5">
-			<Button>Hello World</Button>
-			<Button>Another</Button>
+			<Button>Execute Selected Year</Button>
+			<Button>Execute Selected Day</Button>
 		</StackPanel>
 		<StackPanel Orientation="Horizontal" Spacing="5">
 			<ListBox Width="300" Items="{Binding Years}" SelectedItem="{Binding SelectedYear}" />
 			<ListBox Width="300" Items="{Binding Days}" SelectedItem="{Binding SelectedDay}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<StackPanel Orientation="Horizontal" Spacing="12">
-							<material:MaterialIcon Kind="{Binding Status, Converter={StaticResource statusToIconConverter}, Mode=OneWay}" />
-							<TextBlock Text="{Binding Day}" />
-						</StackPanel>
+						<DockPanel>
+							<Button IsEnabled="{Binding CanExecute}" Command="{Binding Execute}" DockPanel.Dock="Right">Execute</Button>
+							<StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+								<material:MaterialIcon Kind="{Binding Status, Converter={StaticResource statusToIconConverter}, Mode=OneWay}" />
+								<TextBlock Text="{Binding Day}" />
+							</StackPanel>
+						</DockPanel>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
