@@ -1,0 +1,17 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+		     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		     xmlns:vm="using:Sanchez.AOC.ViewModels"
+		     xmlns:root="using:Sanchez.AOC.Root"
+			 xmlns:models="using:Sanchez.AOC.Models"
+		     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		     xmlns:material="using:Material.Icons.Avalonia"
+		     xmlns:converter="clr-namespace:Sanchez.AOC.Converters;assembly=Sanchez.AOC"
+		     x:Class="Sanchez.AOC.Components.SolutionComponent"
+		     DataContext="{x:Static root:DesignData.SolutionAnswer}">
+
+	<StackPanel Orientation="Vertical" Spacing="10">
+		<TextBlock Text="{Binding Display}" FontSize="18" />
+	</StackPanel>
+
+</UserControl>

@@ -1,4 +1,5 @@
-﻿using Sanchez.AOC.ViewModels;
+﻿using Sanchez.AOC.Models;
+using Sanchez.AOC.ViewModels;
 
 namespace Sanchez.AOC.Root
 {
@@ -46,5 +47,6 @@ namespace Sanchez.AOC.Root
         }
 
         public static MainWindowViewModel MainWindow => new(new(FakeSolutions));
+        public static SolutionAnswer SolutionAnswer => new(new FakeSolution(2020, 1));
     }
 }

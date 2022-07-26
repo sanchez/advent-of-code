@@ -16,6 +16,8 @@ public class SolutionAnswer : ReactiveObject
     public int Year => _solution.Year;
     public int Day => _solution.Day;
 
+    public string Display => $"{Year} - {Day}";
+
     [Reactive] public bool CanExecute { get; set; } = true;
 
     public SolutionAnswer(ISolution solution)
