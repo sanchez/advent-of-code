@@ -1,3 +1,6 @@
+use advent_of_code::challenges::y2024::day2::{parta, partb};
+
 fn main() {
-    advent_of_code::challenges::y2024::day1::partb();
+    parta();
+    partb();
 }
