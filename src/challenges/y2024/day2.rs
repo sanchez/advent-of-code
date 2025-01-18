@@ -41,12 +41,12 @@ fn is_valid(vec: &Vec<u64>) -> bool {
     max_distance(vec, 3)
 }
 
-pub fn parta() {
+pub fn parta() -> usize {
     let readings = read_input();
 
     let valid_readings: Vec<Vec<u64>> = readings.into_iter().filter(is_valid).collect();
 
-    println!("{}", valid_readings.len());
+    valid_readings.len()
 }
 
 fn with_variants(vec: &Vec<u64>) -> bool {
@@ -66,8 +66,23 @@ fn with_variants(vec: &Vec<u64>) -> bool {
     false
 }
 
-pub fn partb() {
+pub fn partb() -> usize {
     let readings = read_input().into_iter().filter(with_variants).count();
 
-    println!("{}", readings);
+    readings
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parta() {
+        assert_eq!(591, parta());
+    }
+
+    #[test]
+    fn test_partb() {
+        assert_eq!(621, partb());
+    }
 }

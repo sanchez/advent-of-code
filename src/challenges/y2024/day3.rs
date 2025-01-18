@@ -1,4 +1,3 @@
-use itertools::Itertools;
 use regex::Regex;
 
 use crate::get_input;
@@ -18,10 +17,10 @@ fn read_input() -> Vec<(u64, u64)> {
     result
 }
 
-pub fn parta() {
+pub fn parta() -> u64 {
     let input = read_input().iter().map(|(a, b)| a * b).sum::<u64>();
 
-    println!("{}", input);
+    input
 }
 
 fn is_mul(input: &str) -> Option<(usize, u64, u64)> {
@@ -35,7 +34,7 @@ fn is_mul(input: &str) -> Option<(usize, u64, u64)> {
     Some((mat.len(), left, right))
 }
 
-pub fn partb() {
+pub fn partb() -> u64 {
     let input = get_input(2024, 3);
 
     let mut current_value = 0;
@@ -70,5 +69,20 @@ pub fn partb() {
         position += 1;
     }
 
-    println!("{}", current_value);
+    current_value
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parta() {
+        assert_eq!(182780583, parta());
+    }
+
+    #[test]
+    fn test_partb() {
+        assert_eq!(90772405, partb());
+    }
 }

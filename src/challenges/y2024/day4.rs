@@ -7,93 +7,16 @@ fn read_input() -> Vec<Vec<char>> {
         .collect()
 }
 
-fn find_next_char(
-    input: &Vec<Vec<char>>,
-    target: char,
-    (x, y): (usize, usize),
-) -> Option<(usize, usize)> {
-    let min_x = if x == 0 { 0 } else { x - 1 };
-    let min_y = if y == 0 { 0 } else { y - 1 };
-
-    for i in (min_x)..(x + 1) {
-        if i >= input.len() {
-            continue;
-        }
-
-        for j in (min_y)..(y + 1) {
-            if j >= input[i].len() {
-                continue;
-            }
-
-            if input[i][j] == target {
-                return Some((i, j));
-            }
-        }
-    }
-
-    None
-}
-
-fn find_char_branches(
-    input: &Vec<Vec<char>>,
-    target: char,
-    (x, y): (usize, usize),
-) -> Vec<(usize, usize)> {
-    let mut branches = Vec::new();
-
-    let min_x = if x == 0 { 0 } else { x - 1 };
-    let min_y = if y == 0 { 0 } else { y - 1 };
-
-    for i in (min_x)..(x + 1) {
-        if i >= input.len() {
-            continue;
-        }
-
-        for j in (min_y)..(y + 1) {
-            if j >= input[i].len() {
-                continue;
-            }
-
-            if input[i][j] == target {
-                branches.push((i, j));
-            }
-        }
-    }
-
-    branches
-}
-
-fn search(input: &Vec<Vec<char>>, target: &str, (x, y): (usize, usize)) -> usize {
-    let mut possible_paths = vec![(x, y)];
-    let mut search = target.chars();
-
-    while let Some(c) = search.next() {
-        let mut new_possible_paths = Vec::new();
-
-        for (x, y) in possible_paths {
-            let branches = find_char_branches(input, c, (x, y));
-
-            for (x, y) in branches {
-                new_possible_paths.push((x, y));
-            }
-        }
-
-        possible_paths = new_possible_paths;
-    }
-
-    possible_paths.len()
-}
-
 fn find_direction(input: &Vec<Vec<char>>, target: char, (x, y): (i32, i32)) -> Vec<(i32, i32)> {
     let mut possible = Vec::new();
 
     for i in (x - 1)..=(x + 1) {
         for j in (y - 1)..=(y + 1) {
-            let c = input.get(i).map(|t| t.get(j)).flatten();
-
-            if input[i][j] == target {
-                let dir = ((x as i8).wrapping_sub(i), (y as i8).wrapping_sub(j));
-                possible.push(dir);
+            if let Some(c) = input.get(i as usize).map(|t| t.get(j as usize)).flatten() {
+                if *c == target {
+                    let dir = (x - i, y - j);
+                    possible.push(dir);
+                }
             }
         }
     }
@@ -104,21 +27,22 @@ fn find_direction(input: &Vec<Vec<char>>, target: char, (x, y): (i32, i32)) -> V
 fn is_complete(
     input: &Vec<Vec<char>>,
     target: &str,
-    position: (usize, usize),
-    direction: (i8, i8),
+    position: (i32, i32),
+    direction: (i32, i32),
 ) -> bool {
     let mut position = position;
 
     for c in target.chars() {
-        if let Some(current_value) = input.get(position.0).map(|x| x.get(position.1)).flatten() {
+        if let Some(current_value) = input
+            .get(position.0 as usize)
+            .map(|x| x.get(position.1 as usize))
+            .flatten()
+        {
             if *current_value != c {
                 return false;
             }
 
-            position = (
-                position.0.wrapping_add_signed(direction.0.into()),
-                position.1.wrapping_add_signed(direction.1.into()),
-            );
+            position = (position.0 - direction.0, position.1 - direction.1);
             continue;
         }
 
@@ -128,7 +52,7 @@ fn is_complete(
     return true;
 }
 
-pub fn parta() {
+pub fn parta() -> usize {
     let input = read_input();
 
     let mut counter = 0;
@@ -140,17 +64,79 @@ pub fn parta() {
                 continue;
             }
 
-            let test = find_direction(&input, 'M', (x, y));
+            let pos = (x as i32, y as i32);
 
-            let possible_dirs: Vec<(usize, usize)> = find_direction(&input, 'M', (x, y))
+            let possible_dirs: Vec<(i32, i32)> = find_direction(&input, 'M', pos)
                 .into_iter()
-                .filter(|dir| is_complete(&input, "XMAS", (x, y), *dir))
+                .filter(|dir| is_complete(&input, "XMAS", pos, *dir))
                 .collect();
 
             counter += possible_dirs.len();
         }
     }
 
-    println!("{}", counter);
+    counter
 }
-pub fn partb() {}
+
+fn matches_opposite(
+    input: &Vec<Vec<char>>,
+    target: char,
+    position: (i32, i32),
+    direction: (i32, i32),
+) -> bool {
+    let test = (position.0 + direction.0, position.1 + direction.1);
+
+    if let Some(c) = input
+        .get(test.0 as usize)
+        .map(|t| t.get(test.1 as usize))
+        .flatten()
+    {
+        return *c == target;
+    }
+
+    false
+}
+
+pub fn partb() -> usize {
+    let input = read_input();
+
+    let mut counter = 0;
+
+    for x in 0..input.len() {
+        let line = &input[x];
+        for y in 0..line.len() {
+            if line[y] != 'A' {
+                continue;
+            }
+
+            let pos = (x as i32, y as i32);
+
+            let possible_dirs: Vec<(i32, i32)> = find_direction(&input, 'M', pos)
+                .into_iter()
+                .filter(|dir| matches_opposite(&input, 'S', pos, *dir))
+                .filter(|dir| dir.0 != 0 && dir.1 != 0)
+                .collect();
+
+            if possible_dirs.len() == 2 {
+                counter += 1;
+            }
+        }
+    }
+
+    counter
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parta() {
+        assert_eq!(2557, parta());
+    }
+
+    #[test]
+    fn test_partb() {
+        assert_eq!(1854, partb());
+    }
+}

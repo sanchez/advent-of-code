@@ -16,7 +16,7 @@ fn read_input() -> Vec<(u64, u64)> {
         .collect()
 }
 
-pub fn parta() {
+pub fn parta() -> u64 {
     let input = read_input();
 
     let left = input.clone().iter().map(|x| x.0).sorted();
@@ -27,10 +27,10 @@ pub fn parta() {
         .map(|(left, right)| u64::abs_diff(left, right))
         .sum();
 
-    println!("{}", total);
+    total
 }
 
-pub fn partb() {
+pub fn partb() -> u64 {
     let input = read_input();
 
     let counts = input
@@ -48,5 +48,20 @@ pub fn partb() {
         .map(|x| x.0 * x.1)
         .sum();
 
-    println!("{}", total);
+    total
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parta() {
+        assert_eq!(1938424, parta());
+    }
+
+    #[test]
+    fn test_partb() {
+        assert_eq!(22014209, partb());
+    }
 }
