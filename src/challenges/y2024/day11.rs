@@ -83,6 +83,6 @@ mod tests {
 
     #[test]
     fn test_partb() {
-        assert_eq!(0, partb());
+        assert_eq!(266820198587914, partb());
     }
 }
