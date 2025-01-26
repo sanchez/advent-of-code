@@ -58,7 +58,7 @@ fn get_size(input: &Vec<Option<u64>>, pos: usize) -> usize {
 
     for i in pos..input.len() {
         if input[i] != ele {
-            return (i - pos);
+            return i - pos;
         }
     }
 
