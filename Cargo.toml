@@ -8,3 +8,4 @@ automod = "1.0.14"
 itertools = "0.14.0"
 regex = "1.11.1"
 reqwest = { version = "0.12.12", features = ["blocking", "cookies"] }
+threadpool = "1.8.1"
